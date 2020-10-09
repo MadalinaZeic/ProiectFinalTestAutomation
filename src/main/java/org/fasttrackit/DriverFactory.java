@@ -8,7 +8,9 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import java.util.concurrent.TimeUnit;
 
 public class DriverFactory {
-    public static WebDriver getWebDriver(String browser) {
+    private static WebDriver driver;
+
+    public static WebDriver initDriver(String browser) {
         WebDriver driver;
 
         switch (browser) {
@@ -31,6 +33,11 @@ public class DriverFactory {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
+        DriverFactory.driver = driver;
+        return driver;
+    }
+
+    public static WebDriver getDriver() {
         return driver;
     }
 }

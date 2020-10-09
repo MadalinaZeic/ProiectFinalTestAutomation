@@ -16,7 +16,6 @@ public class AppConfig {
             System.out.println("Failed to load properties from configuration file.");
         }
     }
-
     private static String chromeDriverPath = properties.getProperty("chrome.driver.path");
     private static String geckoDriverPath = properties.getProperty("gecko.driver.path");
     private static String internetExplorerDriverPath = properties.getProperty("ie.driver.path");
@@ -31,9 +30,7 @@ public class AppConfig {
         return geckoDriverPath;
     }
 
-    public static String getInternetExplorerDriverPath() {
-        return internetExplorerDriverPath;
-    }
+    public static String getInternetExplorerDriverPath() {return internetExplorerDriverPath; }
 
     public static String getSiteURL() {
         return siteURL;
