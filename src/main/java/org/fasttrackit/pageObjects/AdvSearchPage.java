@@ -50,10 +50,6 @@ public class AdvSearchPage {
     @FindBy(xpath = "//p[@class='error-msg']")
     private WebElement noItemsFoundMsg;
 
-    public void insertText(WebElement element, String text) {
-        element.sendKeys(text);
-    }
-
     public Select selectItem(WebElement element) {
         return new Select(element);
     }

@@ -22,9 +22,9 @@ Feature: Homepage Tests
     When I click the Search button
     Then an error message is displayed
 
-    Scenario: Advanced search for nonexistent product
-      Given I open the homepage
-      And I open the Advance Search Page
-      And I insert a nonexistent product, "asd"
-      When I click the Search button
-      Then a message with no items found should be displayed
+  Scenario: Advanced search for nonexistent product
+    Given I open the homepage
+    And I open the Advance Search Page
+    And I insert a nonexistent product, "asd"
+    When I click the Search button
+    Then a message with no items found should be displayed

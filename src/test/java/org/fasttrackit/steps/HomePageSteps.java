@@ -49,15 +49,15 @@ public class HomePageSteps extends TestBase {
 
     @And("^I fill out the name field with \"([^\"]*)\"$")
     public void iFillOutTheNameFieldWith(String name) {
-        advSearchPage.insertText(advSearchPage.getNameField(), name);
+        advSearchPage.getNameField().sendKeys(name);
 
         nameResultShown = name;
     }
 
     @And("^I set the prices from \"([^\"]*)\", to \"([^\"]*)\"$")
     public void iSetThePricesFromTo(String minPrice, String maxPrice) {
-        advSearchPage.insertText(advSearchPage.getMinPrice(), minPrice);
-        advSearchPage.insertText(advSearchPage.getMaxPrice(), maxPrice);
+        advSearchPage.getMinPrice().sendKeys(minPrice);
+        advSearchPage.getMaxPrice().sendKeys(maxPrice);
 
         priceResultShown = minPrice + " - " + maxPrice;
     }
@@ -105,7 +105,7 @@ public class HomePageSteps extends TestBase {
 
     @And("^I insert a nonexistent product, \"([^\"]*)\"$")
     public void iInsertANonexistentProduct(String productName) {
-        advSearchPage.insertText(advSearchPage.getNameField(), productName);
+        advSearchPage.getNameField().sendKeys(productName);
     }
 
     @Then("^a message with no items found should be displayed$")
