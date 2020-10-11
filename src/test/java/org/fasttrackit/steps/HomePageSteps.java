@@ -11,7 +11,8 @@ import org.fasttrackit.pageObjects.Footer;
 import org.fasttrackit.pageObjects.HomePage;
 import org.openqa.selenium.support.PageFactory;
 
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class HomePageSteps extends TestBase {
 
@@ -20,6 +21,11 @@ public class HomePageSteps extends TestBase {
     private AdvSearchPage advSearchPage = PageFactory.initElements(driver, AdvSearchPage.class);
 
     int nrOfProducts;
+
+    String nameResultShown;
+    String priceResultShown;
+    String colorResultShown;
+    String genderResultShown;
 
     @Given("^I open the homepage$")
     public void iOpenTheHomepage() {
@@ -45,26 +51,66 @@ public class HomePageSteps extends TestBase {
     public void iFillOutTheNameFieldWith(String name) {
         advSearchPage.insertText(advSearchPage.getNameField(), name);
 
+        nameResultShown = name;
     }
 
     @And("^I set the prices from \"([^\"]*)\", to \"([^\"]*)\"$")
     public void iSetThePricesFromTo(String minPrice, String maxPrice) {
         advSearchPage.insertText(advSearchPage.getMinPrice(), minPrice);
         advSearchPage.insertText(advSearchPage.getMaxPrice(), maxPrice);
+
+        priceResultShown = minPrice + " - " + maxPrice;
     }
 
     @And("^I select the color \"([^\"]*)\"$")
     public void iSelectTheColor(String color) {
         advSearchPage.selectItem(advSearchPage.getColor()).selectByVisibleText(color);
+
+        colorResultShown = color;
     }
 
     @And("^I select \"([^\"]*)\" as gender$")
     public void iSelectAsGender(String gender) {
         advSearchPage.selectItem(advSearchPage.getGender()).selectByVisibleText(gender);
+
+        genderResultShown = gender;
     }
 
     @When("^I click the Search button$")
     public void iClickTheSearchButton() {
         advSearchPage.clickSearchButton();
+    }
+
+    @Then("^a relevant product is displayed$")
+    public void aRelevantProductIsDisplayed() {
+        String expectedText = "item(s)";
+        assertThat("Could not find search results on page.", advSearchPage.getProductsFoundMessage().getText(), containsString(expectedText));
+
+        assertThat("No products displayed.", advSearchPage.getAdvSearchProductsGrid().size() > 0);
+    }
+
+    @And("^relevant information about the product is displayed$")
+    public void relevantInformationAboutTheProductIsDisplayed() {
+        assertThat("Incorrect name result.", advSearchPage.getNameResult().getText(), containsString(nameResultShown));
+        assertThat("Incorrect price result.", advSearchPage.getPriceResult().getText(), containsString(priceResultShown));
+        assertThat("Incorrect color result.", advSearchPage.getColorResult().getText(), containsString(colorResultShown));
+        assertThat("Incorrect gender result.", advSearchPage.getGenderResult().getText(), containsString(genderResultShown));
+    }
+
+    @Then("^an error message is displayed$")
+    public void anErrorMessageIsDisplayed() {
+        String errorMsgTex = "Please specify at least one search term.";
+        assertThat("No error message is displayed.", advSearchPage.getEmptyFormErrorMsg().getText(), containsString(errorMsgTex));
+    }
+
+    @And("^I insert a nonexistent product, \"([^\"]*)\"$")
+    public void iInsertANonexistentProduct(String productName) {
+        advSearchPage.insertText(advSearchPage.getNameField(), productName);
+    }
+
+    @Then("^a message with no items found should be displayed$")
+    public void aMessageWithNoItemsFoundShouldBeDisplayed() {
+        String errorMsgText = "No items were found using the following search criteria.";
+        assertThat("The nonexistent product message does not appear.", advSearchPage.getNoItemsFoundMsg().getText(), containsString(errorMsgText));
     }
 }
