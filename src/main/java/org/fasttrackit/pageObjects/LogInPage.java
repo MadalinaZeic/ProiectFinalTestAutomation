@@ -5,20 +5,33 @@ import org.openqa.selenium.support.FindBy;
 
 public class LogInPage {
 
-    private String logInUrl = "https://demo.cart2quote.com/customer/account/login/";
+    public String getLogInUrl() {
+        return "https://demo.cart2quote.com/customer/account/login/";
+    }
 
     @FindBy(css = "h1")
     private WebElement loginPageTitle;
 
-    @FindBy (id ="email" )
+    @FindBy(id = "email")
     private WebElement loginEmail;
 
-    @FindBy(id="pass")
+    @FindBy(id = "pass")
     private WebElement loginPass;
 
-
-    @FindBy(id="send2")
+    @FindBy(id = "send2")
     private WebElement loginButtonSubmit;
+
+    @FindBy(id = "advice-validate-email-email")
+    private WebElement invalidEmailMsg;
+
+    @FindBy(id = "advice-validate-password-pass")
+    private WebElement invalidPasswordMsg;
+
+    @FindBy(id = "advice-required-entry-email")
+    private WebElement mandatoryEmailMsg;
+
+    @FindBy(id = "advice-required-entry-pass")
+    private WebElement mandatoryPasswordMsg;
 
     public WebElement getLoginEmail() {
         return loginEmail;
@@ -36,7 +49,19 @@ public class LogInPage {
         return loginPageTitle;
     }
 
-    public String getLogInUrl() {
-        return logInUrl;
+    public WebElement getInvalidEmailMsg() {
+        return invalidEmailMsg;
+    }
+
+    public WebElement getInvalidPasswordMsg() {
+        return invalidPasswordMsg;
+    }
+
+    public WebElement getMandatoryEmailMsg() {
+        return mandatoryEmailMsg;
+    }
+
+    public WebElement getMandatoryPasswordMsg() {
+        return mandatoryPasswordMsg;
     }
 }
