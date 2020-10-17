@@ -26,4 +26,16 @@ public class TestBase {
             System.out.println("Homepage pop-up not displayed!");
         }
     }
+
+    public String fillFormGenerator(String input, int endIndex) {
+
+        String suffixGenerator = input + System.nanoTime();
+
+        return suffixGenerator.substring(0, endIndex);
+    }
+
+    public String fillEmailGenerator(String input, int endIndex) {
+        String suffixGenerator = input + System.nanoTime();
+        return suffixGenerator.substring(0, endIndex) + "@cocox.com";
+    }
 }
