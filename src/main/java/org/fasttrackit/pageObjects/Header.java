@@ -1,8 +1,8 @@
 package org.fasttrackit.pageObjects;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 
 public class Header {
 
@@ -15,6 +15,16 @@ public class Header {
     @FindBy(linkText = "Register")
     private WebElement registerSelect;
 
+    @FindBy(id = "search")
+    private WebElement searchField;
+
+    @FindBy(xpath = "//*[@id=\"search_mini_form\"]/div[1]/button")
+    private WebElement searchButton;
+
+    public void searchProduct(String key) {
+        searchField.sendKeys(key + Keys.ENTER);
+    }
+
     public WebElement getAccount() {
         return account;
     }
@@ -25,6 +35,14 @@ public class Header {
 
     public WebElement getRegisterSelect() {
         return registerSelect;
+    }
+
+    public WebElement getSearchButton() {
+        return searchButton;
+    }
+
+    public WebElement getSearchField() {
+        return searchField;
     }
 }
 

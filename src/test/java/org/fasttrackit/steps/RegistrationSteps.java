@@ -1,6 +1,5 @@
 package org.fasttrackit.steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -9,8 +8,8 @@ import org.fasttrackit.pageObjects.Header;
 import org.fasttrackit.pageObjects.RegistrationPage;
 import org.openqa.selenium.support.PageFactory;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class RegistrationSteps extends TestBase {
 
