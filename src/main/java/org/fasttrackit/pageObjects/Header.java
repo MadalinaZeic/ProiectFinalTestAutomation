@@ -21,6 +21,9 @@ public class Header {
     @FindBy(xpath = "//*[@id=\"search_mini_form\"]/div[1]/button")
     private WebElement searchButton;
 
+    @FindBy(css = ".large")
+    private WebElement siteLogo;
+
     public void searchProduct(String key) {
         searchField.sendKeys(key + Keys.ENTER);
     }
@@ -43,6 +46,10 @@ public class Header {
 
     public WebElement getSearchField() {
         return searchField;
+    }
+
+    public WebElement getSiteLogo() {
+        return siteLogo;
     }
 }
 

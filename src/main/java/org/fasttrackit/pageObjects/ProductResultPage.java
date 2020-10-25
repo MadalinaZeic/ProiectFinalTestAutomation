@@ -1,5 +1,7 @@
 package org.fasttrackit.pageObjects;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -20,7 +22,7 @@ public class ProductResultPage {
     @FindBy(css = ".product-name > a")
     private List<WebElement> productGridNameContainer;
 
-    @FindBy(css = ".products-grid .price")
+    @FindBy(xpath = "//span[contains(@id,'product-price')]")
     private List<WebElement> productGridPriceContainer;
 
     public WebElement getProductResultPageTitle() {
@@ -45,10 +47,24 @@ public class ProductResultPage {
 
     public List<String> getProductResultsNames() {
         List<String> names = new ArrayList<>();
+
         for (WebElement nameContainers : productGridNameContainer) {
             String name = nameContainers.getText();
             names.add(name);
         }
         return names;
+    }
+
+    public void viewSpecificProductDetails(WebDriver driver, String index) {
+        driver.findElement(By.cssSelector(".item:nth-child(" + index + ") .button")).click();
+    }
+
+    public String getSpecificProductName(WebDriver driver, String index) {
+        return driver.findElement(By.cssSelector(".item:nth-child(" + index + ") > .product-info > .product-name > a")).getText();
+    }
+
+    public String getSpecificProductPrice(WebDriver driver, String index) {
+        int ConvertedIndex = Integer.parseInt(index) - 1;
+        return productGridPriceContainer.get(ConvertedIndex).getText();
     }
 }

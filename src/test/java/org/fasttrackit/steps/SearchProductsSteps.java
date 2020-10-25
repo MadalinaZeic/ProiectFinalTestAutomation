@@ -7,11 +7,9 @@ import org.fasttrackit.pageObjects.Header;
 import org.fasttrackit.pageObjects.ProductResultPage;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class SearchProductsSteps extends TestBase {
     Header header = PageFactory.initElements(driver, Header.class);
