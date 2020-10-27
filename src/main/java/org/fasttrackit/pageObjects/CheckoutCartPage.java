@@ -24,6 +24,26 @@ public class CheckoutCartPage {
     @FindBy(css = ".last.even .a-center a")
     private WebElement secondRemoveButton;
 
+    @FindBy(css = ".product-cart-actions > .input-text")
+    private WebElement quantityField;
+
+    @FindBy(css = ".product-cart-actions > .button")
+    private WebElement updateQtyButton;
+
+    @FindBy(css = "tr:nth-child(1) strong > .price")
+    private WebElement totalCartPrice;
+
+    @FindBy(css = ".top span > span")
+    private WebElement topCheckoutButton;
+
+    @FindBy(css = ".method-checkout-cart-methods-onepage-bottom span > span")
+    private WebElement bottomCheckoutButton;
+
+    public void updateQtyField(String updQty) {
+        quantityField.clear();
+        quantityField.sendKeys(updQty);
+    }
+
     public WebElement getProductCartName() {
         return productCartName;
     }
@@ -42,5 +62,25 @@ public class CheckoutCartPage {
 
     public WebElement getSecondRemoveButton() {
         return secondRemoveButton;
+    }
+
+    public WebElement getQuantityField() {
+        return quantityField;
+    }
+
+    public WebElement getUpdateQtyButton() {
+        return updateQtyButton;
+    }
+
+    public WebElement getTotalCartPrice() {
+        return totalCartPrice;
+    }
+
+    public WebElement getTopCheckoutButton() {
+        return topCheckoutButton;
+    }
+
+    public WebElement getBottomCheckoutButton() {
+        return bottomCheckoutButton;
     }
 }

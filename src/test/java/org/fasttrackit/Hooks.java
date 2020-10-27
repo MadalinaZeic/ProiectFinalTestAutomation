@@ -9,7 +9,6 @@ public class Hooks {
     public void setup() {
         String browser = System.getProperty("browser", "chrome");
         DriverFactory.initDriver(browser);
-
     }
 
     @After

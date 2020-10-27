@@ -49,3 +49,25 @@ Feature: Add To Cart Tests
     When I remove the second product from cart
     And I remove the first product from cart
     Then the product is removed cart
+
+  Scenario: Add products to cart and increase the quantity
+    Given I open the homepage
+    And I search for "shirt"
+    And I choose product number "3" and store the name and price
+    And I choose color "Charcoal"
+    And I choose size "S"
+    And I add the product to the cart
+    And I update the product quantity to "3"
+    When I click the update quantity button
+    Then The total price matches the total price of the products
+
+  Scenario: Add products to cart and decrease the quantity to 0
+    Given I open the homepage
+    And I search for "shirt"
+    And I choose product number "3" and store the name and price
+    And I choose color "Charcoal"
+    And I choose size "S"
+    And I add the product to the cart
+    And I update the product quantity to "0"
+    When I click the update quantity button
+    Then the product is removed cart

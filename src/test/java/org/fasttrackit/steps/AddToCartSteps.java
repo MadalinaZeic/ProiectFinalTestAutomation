@@ -23,7 +23,10 @@ public class AddToCartSteps extends TestBase {
     public String homepageProductPrice;
 
     public String productName;
-    public String productPrice;
+    public String productPriceUnSplit;
+    public String productPriceSplit;
+
+    public String updatedQuantity;
 
 
     @And("^I store the first product's name$")
@@ -77,8 +80,8 @@ public class AddToCartSteps extends TestBase {
             productName = productResultPage.getSpecificProductName(driver, index);
             System.out.println("Chosen product name is: " + productName);
 
-            productPrice = productResultPage.getSpecificProductPrice(driver, index);
-            System.out.println("Chosen product price is : " + productPrice);
+            productPriceUnSplit = productResultPage.getSpecificProductPrice(driver, index);
+            System.out.println("Chosen product price is : " + productPriceUnSplit);
 
             productResultPage.viewSpecificProductDetails(driver, index);
 
@@ -104,7 +107,7 @@ public class AddToCartSteps extends TestBase {
 
     @And("^The price from the result page is the same as the one on the list$")
     public void thePriceFromTheResultPageIsTheSameAsTheOneOnTheList() {
-        assertThat("The product price is incorrect.", checkoutCartPage.getProductCartPrice().getText(), containsString(productPrice.toUpperCase()));
+        assertThat("The product price is incorrect.", checkoutCartPage.getProductCartPrice().getText(), containsString(productPriceUnSplit.toUpperCase()));
     }
 
     @And("^I remove the first product from cart$")
@@ -131,5 +134,26 @@ public class AddToCartSteps extends TestBase {
     @And("^I click the product page link$")
     public void iClickTheProductPageLink() {
         productPage.getProductLink().click();
+    }
+
+    @And("^I update the product quantity to \"([^\"]*)\"$")
+    public void iUpdateTheProductQuantityTo(String qty) {
+        updatedQuantity = qty;
+        checkoutCartPage.updateQtyField(qty);
+    }
+
+    @When("^I click the update quantity button$")
+    public void iClickTheUpdateQuantityButton() {
+        checkoutCartPage.getUpdateQtyButton().click();
+    }
+
+    @Then("^The total price matches the total price of the products$")
+    public void theTotalPriceMatchesTheTotalPriceOfTheProducts() {
+        String[] priceSplit = productPriceUnSplit.split("[$]");
+        productPriceSplit = priceSplit[1];
+
+        float totalPrice = Float.parseFloat(priceSplit[1]) * Float.parseFloat(updatedQuantity);
+
+        assertThat("Total price does not match.", checkoutCartPage.getTotalCartPrice().getText(), containsString(String.valueOf(totalPrice)));
     }
 }

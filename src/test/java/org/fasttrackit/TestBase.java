@@ -52,4 +52,9 @@ public class TestBase {
         }
         return newList;
     }
+
+
+    public void waitForPageToLoad(int sleepTime) throws InterruptedException {
+        Thread.sleep(10000);
+    }
 }
