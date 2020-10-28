@@ -48,6 +48,12 @@ public class CheckoutPage {
     @FindBy(css = "h1")
     private WebElement orderPlacementSuccessMsg;
 
+    @FindBy(id = "advice-required-entry-billing:street1")
+    private WebElement addressFieldValidation;
+
+    @FindBy(id = "advice-validate-select-billing:region_id")
+    private WebElement regionFieldValidation;
+
     public void fillCheckoutForm() {
         Select dropDownRegion = new Select(regionField);
         Select dropDownCountry = new Select(countryField);
@@ -67,6 +73,13 @@ public class CheckoutPage {
         telephoneField.clear();
     }
 
+    public WebElement getAddressFieldValidation() {
+        return addressFieldValidation;
+    }
+
+    public WebElement getRegionFieldValidation() {
+        return regionFieldValidation;
+    }
 
     public WebElement getCountryField() {
         return countryField;

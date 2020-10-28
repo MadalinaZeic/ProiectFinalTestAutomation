@@ -66,4 +66,18 @@ public class CheckoutSteps extends TestBase {
         assertThat("Confirmation message not displayed", checkoutPage.getOrderPlacementSuccessMsg().getText(), is(checkoutSuccessMsg));
 
     }
+
+    @When("^I clear the checkout form$")
+    public void iClearTheCheckoutForm() {
+        checkoutPage.clearCheckoutForm();
+    }
+
+    @Then("^error messages are shown for the mandatory checkout fields$")
+    public void errorMessagesAreShownForTheMandatoryCheckoutFields() {
+        String requiredFieldErrorMsg = "This is a required field.";
+        String pleaseSelectOptionErrorMsg = "Please select an option.";
+
+        assertThat("Mandatory field not highlighted.",requiredFieldErrorMsg,is(checkoutPage.getAddressFieldValidation().getText()));
+        assertThat("Mandatory field not highlighted.",pleaseSelectOptionErrorMsg,is(checkoutPage.getRegionFieldValidation().getText()));
+    }
 }
