@@ -33,17 +33,34 @@ public class CheckoutSteps extends TestBase {
     public void iChooseThisShippingAddress() {
         checkoutPage.getShipToThisAddress().click();
         checkoutPage.getShippingInfoContinueButton().click();
+
+        try {
+            waitForPageToLoad(5000);
+        } catch (InterruptedException e) {
+            System.out.println("Page took too much to load!");
+        }
     }
 
     @And("^I choose flat rate shipping method$")
     public void iChooseFlatRateShippingMethod() {
         checkoutPage.getShippingMethodContinueButton().click();
+        try {
+            waitForPageToLoad(5000);
+        } catch (InterruptedException e) {
+            System.out.println("Page took too much to load!");
+        }
     }
 
     @And("^I choose cash on delivery payment method$")
     public void iChooseCashOnDeliveryPaymentMethod() {
         checkoutPage.getCashOnDeliveryPaymentOption().click();
         checkoutPage.getPaymentOptionContinueButton().click();
+
+        try {
+            waitForPageToLoad(5000);
+        } catch (InterruptedException e) {
+            System.out.println("Page took too much to load!");
+        }
     }
 
     @When("^I click page order button$")
@@ -54,7 +71,7 @@ public class CheckoutSteps extends TestBase {
     @Then("^order confirmation is received$")
     public void orderConfirmationIsReceived() {
         try {
-            waitForPageToLoad(10000);
+            waitForPageToLoad(5000);
         } catch (InterruptedException e) {
             System.out.println("Page took too much to load!");
         }

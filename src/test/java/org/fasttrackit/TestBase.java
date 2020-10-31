@@ -55,6 +55,6 @@ public class TestBase {
 
 
     public void waitForPageToLoad(int sleepTime) throws InterruptedException {
-        Thread.sleep(10000);
+        Thread.sleep(sleepTime);
     }
 }

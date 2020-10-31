@@ -13,7 +13,7 @@ public class Hooks {
 
     @After
     public void tearDown() {
-//        DriverFactory.getDriver().quit();
+        DriverFactory.getDriver().quit();
     }
 }
 
