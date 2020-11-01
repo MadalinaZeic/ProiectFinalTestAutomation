@@ -27,6 +27,27 @@ Feature: LogIn Tests
       | invalid#@test            | 1        |
       | invalidtest123123123@abc | a        |
 
+
+  Scenario Outline: Login with invalid email format
+    Given I open the homepage
+    And I go to Account and select LogIn
+    And I check that the login page is opened
+    And I insert an email: "<email>"
+    When  I click the login button
+    Then an email format error is displayed
+    Examples:
+      | email                         |
+      | skrapapa                      |
+      | @#$.*                         |
+      | [.*^]]                        |
+      | ☺☻☺☻☺☻☺                       |
+      | ( ͡° ͜ʖ ͡°)                      |
+      | ( ͡◉ ͜ʖ ͡◉)                     |
+      | [̲̅$̲̅(̲̅500̲̅)̲̅$̲̅]                     |
+      | (╯°□°）╯︵ ┻━┻̅                |
+      | ʕ•ᴥ•ʔ (•ω•) (ᵔᴥᵔ)             |
+      | /ᐠ｡ꞈ｡ᐟ\ (=^._.^=) ₍⸍⸌̣ʷ̣̫⸍̣⸌₎     |
+
   Scenario: Login with empty credentials
     Given I open the homepage
     And I go to Account and select LogIn

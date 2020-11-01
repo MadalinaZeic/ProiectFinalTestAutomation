@@ -56,7 +56,9 @@ public class AddToCartSteps extends TestBase {
 
     @And("^The product price is visible in the product page$")
     public void theProductPriceIsVisibleInTheProductPage() {
-        assertThat("The product price is different: ", productPage.getProductPrice().getText(), containsString(homepageProductPrice.toUpperCase()));
+        String[] price = productPage.getProductPrice().getText().split("[$]");
+
+        assertThat("The product price is different: ", price[1], is(homepageProductPrice.toUpperCase()));
     }
 
     @When("^I add the product to the cart$")

@@ -11,6 +11,7 @@ import org.fasttrackit.pageObjects.HomePage;
 import org.openqa.selenium.support.PageFactory;
 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class HomePageSteps extends TestBase {
@@ -109,7 +110,7 @@ public class HomePageSteps extends TestBase {
 
     @Then("^a message with no items found should be displayed$")
     public void aMessageWithNoItemsFoundShouldBeDisplayed() {
-        String errorMsgText = "No items were found using the following search criteria.";
-        assertThat("The nonexistent product message does not appear.", advSearchPage.getNoItemsFoundMsg().getText(), containsString(errorMsgText));
+        String errorMsgText = "No items were found using the following search criteria. Modify your search";
+        assertThat("The nonexistent product message does not appear.", advSearchPage.getNoItemsFoundMsg().getText(), is(errorMsgText));
     }
 }

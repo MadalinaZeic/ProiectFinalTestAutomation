@@ -83,4 +83,12 @@ public class LogInSteps extends TestBase {
         assertThat("The mandatory email error messages are not shown.", logIn.getMandatoryEmailMsg().getText(), is(errorMsg));
         assertThat("The mandatory password error messages are not shown.", logIn.getMandatoryPasswordMsg().getText(), is(errorMsg));
     }
+
+    @Then("^an email format error is displayed$")
+    public void anEmailFormatErrorIsDisplayed() {
+        String validationErrorMsg = logIn.getLoginEmail().getAttribute("validationMessage");
+        String expectedValidationErrorMsg = "Please include an '@' in the email address. '"+validEmail+"' is missing an '@'.";
+
+        assertThat("Format validation error message not show.", validationErrorMsg,is(expectedValidationErrorMsg));
+    }
 }
