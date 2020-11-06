@@ -4,7 +4,7 @@ Feature: LogIn Tests
     Given I open the homepage
     And I go to Account and select LogIn
     And I check that the login page is opened
-    And I insert an email: "test321@test.com"
+    And I insert an email: "logintest@test.com"
     And I insert an password: "123456"
     When  I click the login button
     Then the Account Page is opened
@@ -38,7 +38,7 @@ Feature: LogIn Tests
     Examples:
       | email                         |
       | skrapapa                      |
-      | @#$.*                         |
+      | #$.*                         |
       | [.*^]]                        |
       | ☺☻☺☻☺☻☺                       |
       | ( ͡° ͜ʖ ͡°)                      |

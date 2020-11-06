@@ -13,79 +13,79 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class AddToCartSteps extends TestBase {
 
-    private HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-    private ProductPage productPage = PageFactory.initElements(driver, ProductPage.class);
-    private ProductResultPage productResultPage = PageFactory.initElements(driver, ProductResultPage.class);
-    private CheckoutCartPage checkoutCartPage = PageFactory.initElements(driver, CheckoutCartPage.class);
-    private Header header = PageFactory.initElements(driver, Header.class);
+    private HomePage homePageObj = PageFactory.initElements(driver, HomePage.class);
+    private ProductPage productPageObj = PageFactory.initElements(driver, ProductPage.class);
+    private ProductResultPage productResultPageObj = PageFactory.initElements(driver, ProductResultPage.class);
+    private CheckoutCartPage checkoutCartPageObj = PageFactory.initElements(driver, CheckoutCartPage.class);
+    private Header headerObj = PageFactory.initElements(driver, Header.class);
 
-    public String homepageProductName;
-    public String homepageProductPrice;
+    public String homepageProductNameStored;
+    public String homepageProductPriceStored;
 
-    public String productName;
-    public String productPriceUnSplit;
-    public String productPriceSplit;
+    public String productNameStored;
+    public String productPriceUnSplitStored;
+    public String productPriceSplitStored;
 
-    public String updatedQuantity;
+    public String updatedQuantityStored;
 
 
     @And("^I store the first product's name$")
     public void iStoreTheFirstProductSName() {
-        homepageProductName = homePage.getProductText();
+        homepageProductNameStored = homePageObj.getProductText();
     }
 
     @And("^I store the first product's price$")
     public void iStoreTheFirstProductSPrice() {
-        homepageProductPrice = homePage.getProductPrice();
+        homepageProductPriceStored = homePageObj.getProductPrice();
     }
 
     @And("^I choose the first product$")
     public void iChooseTheFirstProduct() {
-        homePage.getAddToCartButton().click();
+        homePageObj.getAddToCartButton().click();
     }
 
     @And("^I check that the web page is correct$")
     public void iCheckThatTheWebPageIsCorrect() {
-        assertThat("Incorrect web page", driver.getCurrentUrl(), is(checkoutCartPage.getPageUrl()));
+        assertThat("Incorrect web page", driver.getCurrentUrl(), is(checkoutCartPageObj.getPageUrl()));
     }
 
     @And("^The product name is visible in the product page$")
     public void theProductNameIsVisibleInTheProductPage() {
-        assertThat("The product name is different: ", productPage.getProductName().getText(), containsString(homepageProductName.toUpperCase()));
+        assertThat("The product name is different: ", productPageObj.getProductName().getText(), containsString(homepageProductNameStored.toUpperCase()));
     }
 
     @And("^The product price is visible in the product page$")
     public void theProductPriceIsVisibleInTheProductPage() {
-        String[] price = productPage.getProductPrice().getText().split("[$]");
+        String[] price = productPageObj.getProductPrice().getText().split("[$]");
 
-        assertThat("The product price is different: ", price[1], is(homepageProductPrice.toUpperCase()));
+        assertThat("The product price is different: ", price[1], is(homepageProductPriceStored.toUpperCase()));
     }
 
     @When("^I add the product to the cart$")
     public void iAddTheProductToTheCart() {
-        productPage.getAddToCartButton().click();
+        productPageObj.getAddToCartButton().click();
     }
 
     @Then("^The product homepage name is visible in the checkout cart$")
     public void theProductHomepageNameIsVisibleInTheCheckoutCart() {
-        assertThat("The product name is incorrect.", checkoutCartPage.getProductCartName().getText(), containsString(homepageProductName.toUpperCase()));
+        assertThat("The product name is incorrect.", checkoutCartPageObj.getProductCartName().getText(), containsString(homepageProductNameStored.toUpperCase()));
     }
 
     @And("^The price from homepage is the same as the one on the list$")
     public void thePriceFromHomepageIsTheSameAsTheOneOnTheList() {
-        assertThat("The product price is incorrect.", checkoutCartPage.getProductCartPrice().getText(), containsString(homepageProductPrice.toUpperCase()));
+        assertThat("The product price is incorrect.", checkoutCartPageObj.getProductCartPrice().getText(), containsString(homepageProductPriceStored.toUpperCase()));
     }
 
     @And("^I choose product number \"([^\"]*)\" and store the name and price$")
     public void iChooseProductNumberAndStoreTheNameAndPrice(String index) {
         try {
-            productName = productResultPage.getSpecificProductName(driver, index);
-            System.out.println("Chosen product name is: " + productName);
+            productNameStored = productResultPageObj.getSpecificProductName(driver, index);
+            System.out.println("Chosen product name is: " + productNameStored);
 
-            productPriceUnSplit = productResultPage.getSpecificProductPrice(driver, index);
-            System.out.println("Chosen product price is : " + productPriceUnSplit);
+            productPriceUnSplitStored = productResultPageObj.getSpecificProductPrice(driver, index);
+            System.out.println("Chosen product price is : " + productPriceUnSplitStored);
 
-            productResultPage.viewSpecificProductDetails(driver, index);
+            productResultPageObj.viewSpecificProductDetails(driver, index);
 
         } catch (Exception e) {
             System.out.println("Invalid product number!");
@@ -94,68 +94,68 @@ public class AddToCartSteps extends TestBase {
 
     @And("^I choose color \"([^\"]*)\"$")
     public void iChooseColor(String containsText) {
-        productPage.selectColorFromDropDown(driver, containsText);
+        productPageObj.selectColorFromDropDown(driver, containsText);
     }
 
     @And("^I choose size \"([^\"]*)\"$")
     public void iChooseSize(String containsText) {
-        productPage.selectSizeFromDropDown(driver, containsText);
+        productPageObj.selectSizeFromDropDown(driver, containsText);
     }
 
     @Then("^The product result page name is visible in the checkout cart$")
     public void theProductResultPageNameIsVisibleInTheCheckoutCart() {
-        assertThat("The product name is incorrect.", checkoutCartPage.getProductCartName().getText(), containsString(productName.toUpperCase()));
+        assertThat("The product name is incorrect.", checkoutCartPageObj.getProductCartName().getText(), containsString(productNameStored.toUpperCase()));
     }
 
     @And("^The price from the result page is the same as the one on the list$")
     public void thePriceFromTheResultPageIsTheSameAsTheOneOnTheList() {
-        assertThat("The product price is incorrect.", checkoutCartPage.getProductCartPrice().getText(), containsString(productPriceUnSplit.toUpperCase()));
+        assertThat("The product price is incorrect.", checkoutCartPageObj.getProductCartPrice().getText(), containsString(productPriceUnSplitStored.toUpperCase()));
     }
 
     @And("^I remove the first product from cart$")
     public void iRemoveTheFirstProductFromCart() {
-        checkoutCartPage.getFirstRemoveButton().click();
+        checkoutCartPageObj.getFirstRemoveButton().click();
     }
 
     @And("^I remove the second product from cart$")
     public void iRemoveTheSecondProductFromCart() {
-        checkoutCartPage.getSecondRemoveButton().click();
+        checkoutCartPageObj.getSecondRemoveButton().click();
     }
 
     @Then("^the product is removed cart$")
     public void theProductIsRemovedCart() {
         String emptyCartMsg = "SHOPPING CART IS EMPTY";
-        assertThat("Product not removed", emptyCartMsg, is(checkoutCartPage.getPageTitle().getText()));
+        assertThat("Product not removed", emptyCartMsg, is(checkoutCartPageObj.getPageTitle().getText()));
     }
 
     @And("^I click the site logo$")
     public void iClickTheSiteLogo() {
-        header.getSiteLogo().click();
+        headerObj.getSiteLogo().click();
     }
 
     @And("^I click the product page link$")
     public void iClickTheProductPageLink() {
-        productPage.getProductLink().click();
+        productPageObj.getProductLink().click();
     }
 
     @And("^I update the product quantity to \"([^\"]*)\"$")
     public void iUpdateTheProductQuantityTo(String qty) {
-        updatedQuantity = qty;
-        checkoutCartPage.updateQtyField(qty);
+        updatedQuantityStored = qty;
+        checkoutCartPageObj.updateQtyField(qty);
     }
 
     @When("^I click the update quantity button$")
     public void iClickTheUpdateQuantityButton() {
-        checkoutCartPage.getUpdateQtyButton().click();
+        checkoutCartPageObj.getUpdateQtyButton().click();
     }
 
     @Then("^The total price matches the total price of the products$")
     public void theTotalPriceMatchesTheTotalPriceOfTheProducts() {
-        String[] priceSplit = productPriceUnSplit.split("[$]");
-        productPriceSplit = priceSplit[1];
+        String[] priceSplit = productPriceUnSplitStored.split("[$]");
+        productPriceSplitStored = priceSplit[1];
 
-        float totalPrice = Float.parseFloat(priceSplit[1]) * Float.parseFloat(updatedQuantity);
+        float totalPrice = Float.parseFloat(priceSplit[1]) * Float.parseFloat(updatedQuantityStored);
 
-        assertThat("Total price does not match.", checkoutCartPage.getTotalCartPrice().getText(), containsString(String.valueOf(totalPrice)));
+        assertThat("Total price does not match.", checkoutCartPageObj.getTotalCartPrice().getText(), containsString(String.valueOf(totalPrice)));
     }
 }

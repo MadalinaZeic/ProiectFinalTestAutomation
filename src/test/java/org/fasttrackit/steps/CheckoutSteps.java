@@ -8,31 +8,28 @@ import org.fasttrackit.pageObjects.CheckoutCartPage;
 import org.fasttrackit.pageObjects.CheckoutPage;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.concurrent.TimeUnit;
-
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CheckoutSteps extends TestBase {
-    private CheckoutCartPage checkoutCartPage = PageFactory.initElements(driver, CheckoutCartPage.class);
-    private CheckoutPage checkoutPage = PageFactory.initElements(driver, CheckoutPage.class);
+    private CheckoutCartPage checkoutCartPageObj = PageFactory.initElements(driver, CheckoutCartPage.class);
+    private CheckoutPage checkoutPageObj = PageFactory.initElements(driver, CheckoutPage.class);
 
     @When("^I click the checkout button$")
     public void iClickTheCheckoutButton() {
-        checkoutCartPage.getBottomCheckoutButton().click();
+        checkoutCartPageObj.getBottomCheckoutButton().click();
     }
 
     @And("^I fill the checkout form$")
     public void iFillTheCheckoutForm() {
-        checkoutPage.clearCheckoutForm();
-        checkoutPage.fillCheckoutForm();
+        checkoutPageObj.clearCheckoutForm();
+        checkoutPageObj.fillCheckoutForm();
     }
 
     @And("^I choose this shipping address$")
     public void iChooseThisShippingAddress() {
-        checkoutPage.getShipToThisAddress().click();
-        checkoutPage.getShippingInfoContinueButton().click();
+        checkoutPageObj.getShipToThisAddress().click();
+        checkoutPageObj.getShippingInfoContinueButton().click();
 
         try {
             waitForPageToLoad(5000);
@@ -43,7 +40,7 @@ public class CheckoutSteps extends TestBase {
 
     @And("^I choose flat rate shipping method$")
     public void iChooseFlatRateShippingMethod() {
-        checkoutPage.getShippingMethodContinueButton().click();
+        checkoutPageObj.getShippingMethodContinueButton().click();
         try {
             waitForPageToLoad(5000);
         } catch (InterruptedException e) {
@@ -53,8 +50,8 @@ public class CheckoutSteps extends TestBase {
 
     @And("^I choose cash on delivery payment method$")
     public void iChooseCashOnDeliveryPaymentMethod() {
-        checkoutPage.getCashOnDeliveryPaymentOption().click();
-        checkoutPage.getPaymentOptionContinueButton().click();
+        checkoutPageObj.getCashOnDeliveryPaymentOption().click();
+        checkoutPageObj.getPaymentOptionContinueButton().click();
 
         try {
             waitForPageToLoad(5000);
@@ -65,7 +62,7 @@ public class CheckoutSteps extends TestBase {
 
     @When("^I click page order button$")
     public void iClickPageOrderButton() {
-        checkoutPage.getPlaceOrderButton().click();
+        checkoutPageObj.getPlaceOrderButton().click();
     }
 
     @Then("^order confirmation is received$")
@@ -80,13 +77,13 @@ public class CheckoutSteps extends TestBase {
         String checkoutSuccessMsg = "YOUR ORDER HAS BEEN RECEIVED.";
 
         assertThat("Checkout success page nor reached.", driver.getCurrentUrl(), is(checkoutSuccessPage));
-        assertThat("Confirmation message not displayed", checkoutPage.getOrderPlacementSuccessMsg().getText(), is(checkoutSuccessMsg));
+        assertThat("Confirmation message not displayed", checkoutPageObj.getOrderPlacementSuccessMsg().getText(), is(checkoutSuccessMsg));
 
     }
 
     @When("^I clear the checkout form$")
     public void iClearTheCheckoutForm() {
-        checkoutPage.clearCheckoutForm();
+        checkoutPageObj.clearCheckoutForm();
     }
 
     @Then("^error messages are shown for the mandatory checkout fields$")
@@ -94,7 +91,7 @@ public class CheckoutSteps extends TestBase {
         String requiredFieldErrorMsg = "This is a required field.";
         String pleaseSelectOptionErrorMsg = "Please select an option.";
 
-        assertThat("Mandatory field not highlighted.",requiredFieldErrorMsg,is(checkoutPage.getAddressFieldValidation().getText()));
-        assertThat("Mandatory field not highlighted.",pleaseSelectOptionErrorMsg,is(checkoutPage.getRegionFieldValidation().getText()));
+        assertThat("Mandatory field not highlighted.",requiredFieldErrorMsg,is(checkoutPageObj.getAddressFieldValidation().getText()));
+        assertThat("Mandatory field not highlighted.",pleaseSelectOptionErrorMsg,is(checkoutPageObj.getRegionFieldValidation().getText()));
     }
 }
