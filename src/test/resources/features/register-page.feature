@@ -36,5 +36,3 @@ Feature: User registration
     Examples:
       | firstName | lastName | email      | password | passwordConf |
       |           |          | test@email | test     | test123      |
-
-
